@@ -4,8 +4,8 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Soccer Shoes Consulta</title>
-		<link href="css/estilo_consulta.css" rel="stylesheet" type="text/css">
+		<title>Soccer Shoes Categoría</title>
+		<link href="css/estilo_categoria.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<main>
@@ -21,14 +21,14 @@
 		     </nav>
 		     <div class="agrupar">
 		       <section> 
-				<%
-		        	Producto pr=new Producto();
-		        	out.print(pr.consultarTodo());
-		        %>
+			      <%
+					Producto pr = new Producto();
+		          	int cat = Integer.parseInt(request.getParameter("cmbCategoria"));
+		          	String tabla = pr.buscarProductoCategoria(cat);
+		          	out.print(tabla);
+					%>
 		      </section>
 		      <aside>
-		        <a href="https://www.linkedin.com/in/sebastian-tipantu%C3%B1a-bb611235a/">Ver más información sobre los desarrolladores   
-				</a> <br/>
 				<iframe src="https://www.google.com/maps/d/u/0/embed?mid=13sZXbrb9_stTOxckKMGTwOWKAFjhAxo&ehbc=2E312F" width="160" height="120"> 
 				</iframe>
 		      </aside>

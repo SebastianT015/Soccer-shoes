@@ -21,20 +21,16 @@
 		     </nav>
 		     <div class="agrupar">
 		       <section> 
-		          <h3>Nuestra misión</h3>
-		          <p>
-		            Esta empresa tiene 12 años de experiencia en la comercialización de
-		          </p>
-		          <img src= "iconos/trabajo_en_progreso.png" width="400" height="300"/> 
-					<br/>
-					Resolución CS N° 076-04-2016-04-20  <br/>
-					Ingeniería en Ciencias de la Computación <br/>
-					Docente: Ing. Patsy Prieto Msc  <br/>
-					Programación y Plataformas Web  <br/>
-					Período Lectivo:    Marzo 2023 - Agosto 2023 <br/>
-					<a href = registro.jsp>Registrarse</a>
-		 
-		 
+		         <h2>Login del sistema</h2>
+		         <form action ="validarLogin.jsp" method="post">
+			          <table border="1">
+						<tr> <td>Correo Electronico</td> <td><input type="email" id="email" name="usuario" placeholder="usuario@nombreProveedor.dominio" required />*</td> </tr>
+						<tr> <td>Clave</td> <td> <input type="password" id="clave" name="clave" required/></td></tr>
+						<tr> <td colspan="2">*Campo Obligatorio</td></tr>
+						<tr><td><input type ="submit" name="btnEnviar" id="btnEnviar" value="Enviar regitro"/></td><td> <input type ="reset"/></td></tr>
+			          </table>
+          		</form>
+          		<a href=registro.jsp> Registrar</a>
 		      </section>
 		      <aside>
 		        <a href="https://www.linkedin.com/in/sebastian-tipantu%C3%B1a-bb611235a/">Ver más información sobre los desarrolladores   
