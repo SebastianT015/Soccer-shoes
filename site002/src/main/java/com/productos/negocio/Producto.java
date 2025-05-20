@@ -102,7 +102,7 @@ public class Producto {
 	}
 
 	public String mostrarCategoria(){ 
-		String combo="<select name=cmbCategoria>"; 
+		String combo="<select class= form-select name=cmbCategoria>"; 
 		String sql="SELECT * FROM tb_categoria";
 		ResultSet rs=null; 
 		Conexion con=new Conexion(); 
@@ -119,6 +119,96 @@ public class Producto {
 		} 
 		return combo; 
 		}
+	
+	public String reporteProducto() {
+	    String sql = "SELECT pr.id_pr, pr.nombre_pr, cat.descripcion_cat, pr.cantidad_pr, pr.precio_pr " + 
+	                 "FROM tb_productos pr, tb_categoria cat WHERE pr.id_cat = cat.id_cat";
+	    Conexion con = new Conexion();
+	    ResultSet rs = null;
+	    rs = con.Consulta(sql);
+	    String tabla = "<table class='table'><thead><tr>"
+	                    + "<th scope='col'>Id</th>"
+	                    + "<th scope='col'>Descripcion</th>"
+	                    + "<th scope='col'>Categoria</th>"
+	                    + "<th scope='col'>Cantidad</th>"
+	                    + "<th scope='col'>Precio</th>"
+	                    + "<th scope='col'>Modificar</th>"
+	                    + "<th scope='col'>Eliminar</th>"
+	                    + "</tr>"
+	                    + "</thead>"
+	                    + "<tbody>";
 
+	    try {
+	        while(rs.next()) {
+	            tabla += "<tr>"
+	            + "<th scope='row'>" + rs.getInt(1) + "</th>"
+	            + "<td>" + rs.getString(2) + "</td>"
+	            + "<td>" + rs.getString(3) + "</td>"
+	            + "<td>" + rs.getInt(4) + "</td>"
+	            + "<td>" + rs.getDouble(5) + "</td>"
+	            + "<td><a href='actualizar.jsp?id=" + rs.getInt(1) + "'>"
+	                + "Actualizar</a></td>"
+	            + "<td><a href='eliminar.jsp?id=" + rs.getInt(1) + "'>"
+	                + "Eliminar</a></td>"
+	            + "</tr>";
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.print(e.getMessage());
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            // Aquí deberías cerrar también la conexión si es posible
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    tabla += "</tbody></table>";
+	    return tabla;
+	}
+	public String reporteBitacora() {
+	    String sql = "SELECT id_aud, tabla_aud,operacion_aud , valoranterior_aud, " +
+	                 "valornuevo_aud, fecha_aud, usuario_aud FROM auditoria.tb_auditoria ORDER BY fecha_aud DESC";
+	    
+	    Conexion con = new Conexion();
+	    ResultSet rs = null;
+	    rs = con.Consulta(sql);
+	    
+	    String tabla = "<table class='table'><thead><tr>"
+	                 + "<th scope='col'>Id</th>"
+	                 + "<th scope='col'>Tabla</th>"
+	                 + "<th scope='col'>Operación</th>"
+	                 + "<th scope='col'>Datos Anteriores</th>"
+	                 + "<th scope='col'>Datos Nuevos</th>"
+	                 + "<th scope='col'>Fecha</th>"
+	                 + "<th scope='col'>Usuario</th>"
+	                 + "</tr></thead><tbody>";
 
+	    try {
+	        while(rs.next()) {
+	        	tabla += "<tr>"
+	                    + "<td>" + rs.getInt("id_aud") + "</td>"
+	                    + "<td>" + rs.getString("tabla_aud") + "</td>"
+	                    + "<td>" + rs.getString("operacion_aud") + "</td>"
+	                    + "<td>" + (rs.getString("valoranterior_aud") != null ? rs.getString("valoranterior_aud") : "-") + "</td>"
+	                    + "<td>" + (rs.getString("valornuevo_aud") != null ? rs.getString("valornuevo_aud") : "-") + "</td>"
+	                    + "<td>" + rs.getTimestamp("fecha_aud") + "</td>"
+	                    + "<td>" + rs.getString("usuario_aud") + "</td>"
+	                    + "</tr>";
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.print(e.getMessage());
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            // Cerrar la conexión si es necesario
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    tabla += "</tbody></table>";
+	    return tabla;
+	}
 }
